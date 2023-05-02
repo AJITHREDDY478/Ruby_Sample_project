@@ -1,0 +1,45 @@
+<style>
+.green-button {
+  background-color: green;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+span.required {
+  color: red;
+  margin-left: 5px;
+}
+
+</style>
+<script>
+window.onload = function() {
+  document.getElementById("long_url").value = "";
+}
+</script>
+
+<h1>Shorten a URL</h1>
+
+<%= form_with(model: @url, url: urls_path, local: true) do |form| %>
+  <% if @url.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@url.errors.count, "error") %> prohibited this URL from being saved:</h2>
+
+      <ul>
+      <% @url.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label 'Enter URL'%><span class="required">*</span>
+    <%= form.text_field :long_url, placeholder: "Enter URL", required: true, value: "" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Generate Short URL", class: "green-button" , style: "text-align: center;" %>
+  </div>
+<% end %>

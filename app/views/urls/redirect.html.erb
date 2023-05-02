@@ -1,0 +1,7 @@
+<% if flash[:error] %>
+  <p><%= flash[:error] %></p>
+<% else %>
+  <script>
+    window.location = '<%= @url.long_url %>';
+  </script>
+<% end %>

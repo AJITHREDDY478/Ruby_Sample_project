@@ -1,0 +1,58 @@
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-dkf00vyRL0zrPgiC/AV97ZJVmuVIo3qFHJNws2Q/e1nHHnsiJUfCgUOMSD99/pAa5pZMhF5kp5RGSc+vLlaAA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+<style>
+table {
+  border-collapse: collapse;
+}
+
+th {
+  background-color: #4CAF50;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  border: 1px solid black;
+}
+
+td {
+  text-align: center;
+  border: 1px solid black;
+  padding: 8px;
+}
+  <h1 style="text-align:center;">URL Details</h1>
+</style>
+<script src="https://kit.fontawesome.com/12326c6801.js" crossorigin="anonymous"></script>
+</head>
+<div class="url-details">
+<h1>Original URL:</h1>
+<p><%= link_to @url.long_url, @url.long_url, target: '_blank' %></p>
+
+<h1>Short URL:</h1>
+<p><%= link_to @url.short_url, redirect_path(@url.short_url), target: '_blank' %></p>
+
+<h1>URL Details</h1>
+<table class="table" style="border: 1px solid black" >
+  <thead>
+    <tr>
+      <th>Sl No.</th>
+      <th>Original URL</th>
+      <th>Short URL</th>
+      <th>Created At</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @urls.each_with_index do |url, index| %>
+      <tr>
+        <td class="text-center"><%= url.id %></td>
+        <td class="text-center"><%= link_to url.long_url, url.long_url, target: '_blank' %></td>
+        <td class="text-center"><%= link_to url.short_url, redirect_path(url.short_url), target: '_blank' %></td>
+        <td class="text-center"><%= url.created_at.strftime('%d-%m-%Y') %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @urls %>
+
+<%= link_to "New URL", new_url_path, class: "btn btn-success" %>

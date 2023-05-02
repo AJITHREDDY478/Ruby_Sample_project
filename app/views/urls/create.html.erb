@@ -1,0 +1,30 @@
+<h1>Generate Short URL</h1>
+
+<%= form_with model: @url, url: urls_path do |form| %>
+  <% if @url.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@url.errors.count, "error") %> prohibited this URL from being saved:</h2>
+
+      <ul>
+      <% @url.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :long_url %>
+    <%= form.text_field :long_url, placeholder: 'Enter long URL', required: true %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'Generate Short URL' %>
+  </div>
+<% end %>
+
+<% if @shortened_url.present? %>
+  <div class="alert alert-success" role="alert">
+    Here's your shortened URL: <%= link_to @shortened_url, redirect_path(@shortened_url) %>
+  </div>
+<% end %>
